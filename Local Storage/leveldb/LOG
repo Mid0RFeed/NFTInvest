@@ -1,0 +1,14 @@
+2022/06/11-20:56:17.078 6c1a Recovering log #51
+2022/06/11-20:56:17.078 6c1a Level-0 table #53: started
+2022/06/11-20:56:17.079 6c1a Level-0 table #53: 5422 bytes OK
+2022/06/11-20:56:17.082 6c1a Delete type=3 #49
+2022/06/11-20:56:17.082 6c1a Delete type=0 #51
+2022/06/11-20:56:17.082 6c1c Compacting 4@0 + 1@1 files
+2022/06/11-20:56:17.083 6c1c Generated table #55@0: 22 keys, 3508 bytes
+2022/06/11-20:56:17.083 6c1c Compacted 4@0 + 1@1 files => 3508 bytes
+2022/06/11-20:56:17.084 6c1c compacted to: files[ 0 1 0 0 0 0 0 ]
+2022/06/11-20:56:17.084 6c1c Delete type=2 #53
+2022/06/11-20:56:17.084 6c1c Delete type=2 #47
+2022/06/11-20:56:17.084 6c1c Delete type=2 #50
+2022/06/11-20:56:17.084 6c1c Delete type=2 #42
+2022/06/11-20:56:17.084 6c1c Delete type=2 #44

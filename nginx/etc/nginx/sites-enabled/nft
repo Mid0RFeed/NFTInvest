@@ -1,0 +1,77 @@
+server {
+	set $main_domain nft-portfolio-ai.ru;
+
+    listen 443 ssl;
+    server_name nft-portfolio-ai.ru;
+	
+	#root /var/www/;
+
+	if ($host != $main_domain) {
+		return 444;
+	}
+
+    ssl_certificate     /var/www/nft/ssl/main/pem.txt;
+    ssl_certificate_key /var/www/nft/ssl/main/key.txt;
+
+    #access_log off;
+    access_log /var/log/nginx/nft/access.log;
+    error_log /var/log/nginx/nft/error.log;
+#    charset utf-8;
+
+	if ( $http_user_agent ~* (nmap|nikto|wikto|sqlmap|bsqlbf|w3af|acunetix|havij|appscan) ) {
+            return 403;
+        }
+
+
+    error_page 404 /_error_404.txt;
+    error_page 403 /_error_403.txt;
+    error_page 405 /_error_another.txt;
+
+    location = /_error_another.txt {
+        root /var/www/nft/express/resource/cdn;
+        internal;
+    }
+    location = /_error_404.txt {
+        root /var/www/nft/express/resource/cdn;
+        internal;
+    }
+    location = /_error_403.txt {
+        root /var/www/nft/express/resource/cdn;
+        internal;
+    }
+
+    location /api/ {
+        proxy_pass http://localhost:9369;
+	    proxy_read_timeout 600;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location = /favicon.ico {
+        root /var/www/nft/express/resource;
+        try_files /build/favicon.ico =404;
+    }
+    location = /robots.txt {
+        root /var/www/nft/express/resource;
+        try_files /build/robots.txt =404;
+    }
+    location /cdn/ {
+        root /var/www/nft/express/resource;
+        autoindex off;
+    }
+
+    location /static/ {
+        root /var/www/nft/express/resource/build;
+        autoindex off;
+    }
+
+    location / {
+        root /var/www/nft/express/resource/build;
+        try_files $uri /index.html;
+    }
+}
+
